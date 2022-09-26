@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isEmpty } from "lodash";
-import { setItem, updateItem } from '../../utils/localStorage';
+import { setItem, updateItem, getItem} from '../../utils/localStorage';
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
+import { useLocation } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -121,6 +122,8 @@ const UploadBtn = styled.button`
 `;
 function EventInput() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [error, setError] = useState(false);
   const [eventName, setEventName] = useState("");
   const [hostName, setHostName] = useState("");
@@ -162,8 +165,26 @@ function EventInput() {
     endDate,
     streetName,
     city,
-    postCode
+    postCode,
+    urlLink,
+    selectedImage
 	]);
+
+
+  useEffect(() => {
+    if (!isEmpty(location.search) && !isEmpty(getItem("eventInfo"))) {
+      const eventData = getItem("eventInfo")
+      setEventName(eventData.eventName);
+      setHostName(eventData.hostName);
+      setStartDate(eventData.startDate);
+      setEndDate(eventData.endDate);
+      setStreetName(eventData.streetName);
+      setCity(eventData.city);
+      setPostCode(eventData.postCode);
+      setUrlLink(eventData.urlLink);
+      setSelectedImage(eventData.selectedImage);
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -193,9 +214,13 @@ function EventInput() {
       
       <EventWrapper>  
         <FormContent> 
-          <h1>Create your event</h1>
+          {
+            !isEmpty(location.search)?
+            <h1>Edit your event</h1> :
+            <h1>Create your event</h1>
+          }
           <Formlabel>
-            Event Name:
+            🎉 Event Name:
             <Input
               type="text"
               name="eventName"
@@ -206,7 +231,7 @@ function EventInput() {
             {error && isEmpty(eventName) && <FormItemMessage>Event name can not be empty!</FormItemMessage>}
           </Formlabel>
           <Formlabel>
-            Host Name:
+            💁 Host Name:
             <Input
               type="text"
               name="hostName"
@@ -217,7 +242,7 @@ function EventInput() {
             {error && isEmpty(hostName) && <FormItemMessage>Host name can not be empty!</FormItemMessage>}
           </Formlabel>
           <Formlabel>
-            Start Date:
+            🗓 Start Date:
             <Input
               type="datetime-local"
               name="startDate"
@@ -228,7 +253,7 @@ function EventInput() {
           {error && isEmpty(startDate) && <FormItemMessage>Start date can not be empty!</FormItemMessage>}
           </Formlabel>
           <Formlabel>
-            End Date:
+            🏁 End Date:
             <Input
               type="datetime-local"
               name="endDate"
@@ -239,7 +264,7 @@ function EventInput() {
             {error && isEmpty(endDate) && <FormItemMessage>End date can not be empty!</FormItemMessage>}      
           </Formlabel>
           <Formlabel>
-            Street name:
+            📍 Street name:
             <Input
               type="text"
               name="streetName"
@@ -251,7 +276,7 @@ function EventInput() {
           </Formlabel>
           <Row>
           <Formlabel>
-            City:
+            🪢 City:
             <Input
               type="text"
               name="city"
@@ -262,7 +287,7 @@ function EventInput() {
             {error && isEmpty(city) && <FormItemMessage>City can not be empty!</FormItemMessage>}      
           </Formlabel>
           <Formlabel>
-            Post code:
+            🕸 Post code:
             <Input
               type="text"
               name="postCode"
@@ -274,11 +299,12 @@ function EventInput() {
           </Formlabel>
           </Row>
           <Formlabel>
-            Add a URL link(optional)
+            🔗 Add a URL link(optional)
             <Input
               type="text"
               name="urlLink"
               value={urlLink}
+              placeholder="eg. https://www."
               onChange={e => setUrlLink(e.target.value)}
             />
           </Formlabel>
@@ -305,7 +331,13 @@ function EventInput() {
         </ImageContent>
       </EventWrapper>
       <ButtonWrapper>
-          <SubmitButton type='submit' onClick={handleSubmit} role="submit-btn">Create your event</SubmitButton>
+          <SubmitButton type='submit' onClick={handleSubmit} role="submit-btn">
+            {
+              !isEmpty(location.search)? "Save your edit" :
+              "Create your event"
+            }
+            
+          </SubmitButton>
       </ButtonWrapper>
       
     </Container>

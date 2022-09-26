@@ -32,7 +32,7 @@ function CreateEvent() {
   return (
     <CreateWrapper>
       <HeaderContainer>
-        <CancelButton onClick={() => navigate(-1)}>Cancel</CancelButton>
+        <CancelButton onClick={() => navigate('/')}>Cancel</CancelButton>
       </HeaderContainer>
       <EventInput />
     </CreateWrapper>

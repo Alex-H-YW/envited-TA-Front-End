@@ -116,11 +116,18 @@ const Btn = styled.button`
 `;
 
 function Display() {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [eventData, setEventData] = useState();
   const handleRemove = () => {
     localStorage.clear();
-    history('/create');
+    navigate('/create');
+
+  }
+  const handleEdit = () => {
+    navigate({
+      pathname:'/create',
+      search: '?edit'
+    });
 
   }
 
@@ -197,7 +204,7 @@ function Display() {
               
             }
             <BtnWrapper>
-              <Btn >Edit Event</Btn>
+              <Btn onClick={handleEdit}>Edit Event</Btn>
               <Btn onClick={handleRemove}>Remove Event</Btn>
               
             </BtnWrapper>
