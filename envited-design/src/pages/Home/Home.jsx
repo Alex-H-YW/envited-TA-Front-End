@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 900px;
+  height: 850px;
   width: 100%;
   background-color: #e9dfff;
   @media (max-width: 1024px) {
@@ -38,21 +38,21 @@ const BackgroundWrapper = styled.div`
 
 const Content = styled.div`
   max-width: 400px;
-  padding-left: 200px;
+  padding-left: 100px;
   padding-right: 100px;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   flex-direction: column;
-  @media (max-width: 1024px) {
-    padding-left: 30px;
+  @media (min-width: 1024px) {
+    padding-left: 300px;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
   }
 
 `;
 const Title = styled.span`
-  font-size: 65px;
+  font-size: 64px;
   font-weight: bold;
   text-align: right;
   @media (max-width: 1024px) {
@@ -73,9 +73,11 @@ const TitleColor = styled.span`
 const SubTitle = styled.span`
   font-size: 20px;
   text-align: right;
-  padding-bottom: 40px;
   @media (max-width: 1024px) {
     text-align: center;
+  }
+  @media (min-width: 1024px) {
+    padding-bottom: 40px;
   }
 `;
 const LaptopButton = styled.button`
@@ -96,6 +98,7 @@ const LaptopButton = styled.button`
 	
 `;
 const MobileButton = styled.button`
+  width: 300px;
   margin: 20px;
   padding: 10px;
   cursor: pointer;
