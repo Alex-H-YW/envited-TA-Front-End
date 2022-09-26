@@ -131,7 +131,7 @@ function Home() {
       </Content>
       </MobileContainer>
       <Link to="/create">
-          <MobileButton data-testid="homeBtn">🎉 Create my event</MobileButton>
+          <MobileButton>🎉 Create my event</MobileButton>
       </Link>
       </Container>      
   )

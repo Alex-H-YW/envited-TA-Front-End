@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 test('should render 5 text of input', ()=> {
     render(<EventInput />, {wrapper: MemoryRouter});
-    expect(screen.getAllByRole('textbox')).toHaveLength(5);
+    expect(screen.getAllByRole('textbox')).toHaveLength(6);
 });
 
 test('should render correct text in upload image', ()=> {
